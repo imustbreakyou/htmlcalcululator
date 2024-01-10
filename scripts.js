@@ -5,6 +5,8 @@ const operator = prompt("operator", "+");
 
 const secondOperand = prompt("second number:",'');
 
+const calculateButton = document.querySelector('#calculate')
+
 
 operate(firstOperand, secondOperand, operator);
 
@@ -136,3 +138,10 @@ function isWholeNumber (intermediateResult) {
         return true;
 }
 
+function clear () {
+
+}
+
+function delete () {
+
+}
