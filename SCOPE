@@ -1,0 +1,25 @@
+
+Functions: Add Subtract Multiply and Divide
+A calculator operation will consist of a number, an operator, and another number. For example, 3 + 5. Create three variables for each of the parts of a calculator operation. Create a variable for the first number, the operator, and the second number. You’ll use these variables to update your display later.
+oeprate function wioll take 2 numbers and calls an above funciton on each
+create html caclulator 
+Store first and second number in caclulator utilize the operator that the user selects 
+
+
+ update the display with the solution and problem, store result as first number
+
+ Extra considerations: Users should be able to string together several operations and get the right answer, with each pair of numbers being evaluated at a time.
+
+ Your calculator should not evaluate more than a single pair of numbers at a time. 
+
+ You should round answers with long decimals so that they don’t overflow the screen.
+
+ Pressing = before entering all of the numbers or an operator could cause problems!
+
+ Pressing “clear” should wipe out any existing data.. make sure the user is really starting fresh after pressing “clear”
+
+ Display a snarky error message if the user tries to divide by 0… and don’t let it crash your calculator!
+
+  Add a . button and let users input decimals! Make sure you don’t let them type more than one though: 12.3.56.5. It is hard to do math on these numbers. (disable the decimal button if there’s already one in the display)
+
+
