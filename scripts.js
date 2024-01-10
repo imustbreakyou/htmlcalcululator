@@ -37,16 +37,24 @@ function operate (firstOperand, secondOperand, operator) {
 
 
 function add (firstOperand, secondOperand) {
-    //console.log("fire add function!");
-    // console.log("add firstOperand: ", firstOperand);
-    // console.log("add secondOperand: ", secondOperand);
+    console.log("fire add function!");
+    console.log("add firstOperand: ", firstOperand);
+    console.log("add secondOperand: ", secondOperand);
     //  console.log("add operator: ", operator);
-    let a = parseInt(firstOperand);
-    let b = parseInt(secondOperand);
-    result = a + b;
+    let a = Number(firstOperand);
+    let b = Number(secondOperand);
+
+
+    intermediateResult = Number(a + b)
+    if (isWholeNumber(intermediateResult)) {
+        result = Number(intermediateResult);
+    } else {
+        result = Number(intermediateResult.toFixed(3));
+    }
+
     alert(result);
-    console.log(result);
     return result;
+
 }
 
 function subtract (firstOperand, secondOperand) {
@@ -54,13 +62,21 @@ function subtract (firstOperand, secondOperand) {
     // console.log("add firstOperand: ", firstOperand);
     // console.log("add secondOperand: ", secondOperand);
     //  console.log("add operator: ", operator);
-    let a = parseInt(firstOperand);
-    let b = parseInt(secondOperand);
-    result = a - b;
+    let a = Number(firstOperand);
+    let b = Number(secondOperand);
+  
+    intermediateResult = Number(a - b)
+    if (isWholeNumber(intermediateResult)) {
+        result = Number(intermediateResult);
+    } else {
+        result = Number(intermediateResult.toFixed(3));
+    }
+
     alert(result);
-    console.log(result);
     return result;
+
 }
+
 
 function multiply (firstOperand, secondOperand) {
     
@@ -68,12 +84,21 @@ function multiply (firstOperand, secondOperand) {
     // console.log("* firstOperand: ", firstOperand);
     // console.log("* secondOperand: ", secondOperand);
     //  console.log("* operator: ", operator);
-    let a = parseInt(firstOperand);
-    let b = parseInt(secondOperand);
-    result = a * b;
+    let a = Number(firstOperand);
+    let b = Number(secondOperand);
+    
+    intermediateResult = Number(a * b)
+    if (isWholeNumber(intermediateResult)) {
+        result = Number(intermediateResult);
+    } else {
+        result = Number(intermediateResult.toFixed(3));
+    }
+
     alert(result);
-    console.log(result);
     return result;
+
+
+
 }
 
 function divide (firstOperand, secondOperand) {
@@ -86,10 +111,28 @@ function divide (firstOperand, secondOperand) {
     if ( b === 0 ) {
         throw new Error ("Dont even think about dividing by zero!");
     } else {
-        result = a / b;
-        alert(result);
-        console.log(result);
-        return result;
-    };
+        intermediateResult = Number(a / b)
+        if (isWholeNumber(intermediateResult)) {
+            result = Number(intermediateResult);
+        } else {
+            result = Number(intermediateResult.toFixed(3));
+        }
+    }
+
+    alert(result);
+    return result;
+
+    
 
 }
+
+function isWholeNumber (intermediateResult) {
+    let result = (intermediateResult - Math.floor(intermediateResult)) !== 0;
+    if (result) {
+        console.log("iswhole.... NOT a whole number");
+        return false;
+    } else
+    console.log("iswhole.... whole number!");
+        return true;
+}
+
