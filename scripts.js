@@ -21,7 +21,7 @@ calculateButton.addEventListener('click', function() {
 const clearButton = document.getElementById('clear-button');
 clearButton.addEventListener('click', function() {
     console.log("CLEAR");
-   
+    rawNumberString = 0;
     firstOperand = 0;
     secondOperand = 0;
     return
@@ -32,17 +32,35 @@ const deleteButton = document.getElementById('delete-button');
 deleteButton.addEventListener('click', function() {
     console.log("DELETE");
     rawNumberString = rawNumberString.slice(0, -1);
+    console.log(typeof rawNumberString);
     
 });
 
+//Intake Decimal
+const decimalButton = document.getElementById('decimal');
+decimalButton.addEventListener('click', function() {
+    console.log(deleteButton);
+    
+    if (!isWholeNumber(rawNumberString) || rawNumberString.slice(-1) === ".") {
+        alert("improper decimal choice");
+        return;
+
+    } else {
+
+        rawNumberString += (this.value);
+    }
+});
 
 
 // Intake Number
 document.querySelectorAll('.number-button').forEach(button => {
     button.addEventListener('click', function() {
         console.log(this.value);
+        console.log(typeof this.value);
    
-        rawNumberString += rawNumberString + (this.value);
+        rawNumberString += (this.value);
+        console.log(typeof rawNumberString);
+        console.log(rawNumberString);
 
     })
 }); 
@@ -54,7 +72,7 @@ document.querySelectorAll('.operator-button').forEach(button => {
         console.log(rawNumberString);
         firstOperand = rawNumberString;
         rawNumberString = '';
-        console.log("clciked");
+        console.log("clicked");
     })
 }); 
 
