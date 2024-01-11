@@ -4,13 +4,15 @@
  let operands =[];
  let operator;
 
-const viewResult = document.getElementById('view-result');
-//const operator = prompt("operator", "+");
-
-//const secondOperand = prompt("second number:",'');
-
-
 let rawNumberString = '';
+
+const viewResult = document.getElementById('view-result');
+const displayOperationDiv = document.getElementById('view-operation');
+
+// ALL CLICK EVENT LISTENER
+document.addEventListener('click', function(event) {
+    showCalculation();
+})
 
 // Calculate Functionalility 
 const calculateButton = document.getElementById('calculate');
@@ -91,7 +93,7 @@ document.querySelectorAll('.number-button').forEach(button => {
     button.addEventListener('click', function() {
          
         rawNumberString += (this.value);
-       
+     
         console.log(rawNumberString);
 
     })
@@ -109,11 +111,13 @@ document.querySelectorAll('.operator-button').forEach(button => {
         
    
         numberString = Number(rawNumberString);
+        
 
         rawNumberString = '';
         operarands = prepareForOperate(numberString);
         console.log("perpare for operate a success! Operands array now shows: ", operands)
         
+     
         firstOperand = operands[0]
         console.log(firstOperand);
         secondOperand = operands[1]
@@ -295,5 +299,17 @@ function prepareNewCalculation (result) {
     operands = [];
     operands.push(firstOperand);
     return;
+}
+
+function showCalculation() {
+    if (!firstOperand && !operator && !secondOperand) {
+        displayOperationDiv.textContent = rawNumberString;
+    } else if (firstOperand && !operator && !secondOperand) {
+        displayOperationDiv.textContent = firstOperand;
+    } else if (firstOperand && operator && !secondOperand) {
+        displayOperationDiv.textContent = firstOperand + operator + rawNumberString;
+    } else if (firstOperand && operator && secondOperand) {
+        displayOperationDiv.textContent = firstOperand + operator + secondOperand;
+    }
 }
 
