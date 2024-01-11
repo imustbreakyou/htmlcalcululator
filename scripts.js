@@ -1,25 +1,27 @@
 
-//const firstOperand = prompt("first number:", '');
+ let firstOperand;
 
 //const operator = prompt("operator", "+");
 
 //const secondOperand = prompt("second number:",'');
 
-let numberInputArray = [];
 
+let rawNumberString = '';
 
 // Set Calculate Button const and event Listener
 const calculateButton = document.getElementById('calculate');
 calculateButton.addEventListener('click', function() {
     console.log(this.value);
-    console.log(numberInputArray);
+
+
+
 });
 
 // Clear Functionality 
 const clearButton = document.getElementById('clear-button');
 clearButton.addEventListener('click', function() {
     console.log("CLEAR");
-    numberInputArray = [];
+   
     firstOperand = 0;
     secondOperand = 0;
     return
@@ -29,7 +31,7 @@ clearButton.addEventListener('click', function() {
 const deleteButton = document.getElementById('delete-button');
 deleteButton.addEventListener('click', function() {
     console.log("DELETE");
-    return numberInputArray.pop();
+    rawNumberString = rawNumberString.slice(0, -1);
     
 });
 
@@ -39,7 +41,8 @@ deleteButton.addEventListener('click', function() {
 document.querySelectorAll('.number-button').forEach(button => {
     button.addEventListener('click', function() {
         console.log(this.value);
-        numberInputArray.push(this.value);
+   
+        rawNumberString += rawNumberString + (this.value);
 
     })
 }); 
@@ -48,6 +51,10 @@ document.querySelectorAll('.number-button').forEach(button => {
 document.querySelectorAll('.operator-button').forEach(button => {
     button.addEventListener('click', function() {
         console.log(this.value);
+        console.log(rawNumberString);
+        firstOperand = rawNumberString;
+        rawNumberString = '';
+        console.log("clciked");
     })
 }); 
 
@@ -193,19 +200,10 @@ function isWholeNumber (intermediateResult) {
 
 
 
-function clear () {
 
-}
-
-function deleteLastCharacter () {
-
-}
-
-function buildOperand () {
+function buildOperands () {
 
 
-
-    
 
 }
 
