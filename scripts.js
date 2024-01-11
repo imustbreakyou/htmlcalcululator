@@ -2,6 +2,7 @@
  let firstOperand;
  let secondOperand;
  let operands =[];
+ let operator;
 
 const viewResult = document.getElementById('view-result');
 //const operator = prompt("operator", "+");
@@ -28,6 +29,9 @@ clearButton.addEventListener('click', function() {
     firstOperand = '';
     secondOperand = '';
     operands = [];
+    operator = '';
+    viewResult.textContent = 0;
+
     return
 });
 
@@ -73,8 +77,13 @@ document.querySelectorAll('.number-button').forEach(button => {
 // Intake Operator
 document.querySelectorAll('.operator-button').forEach(button => {
     button.addEventListener('click', function() {
+        if (!operator) {
+            operator = this.value;
+            
+        } else {
+            newOperator = this.value;
+        }
         
-        operator = this.value;
    
         numberString = Number(rawNumberString);
 
@@ -90,7 +99,10 @@ document.querySelectorAll('.operator-button').forEach(button => {
         if (operands.length < 2) {
             return;
         } else {
+
             operate(firstOperand, secondOperand, operator);
+            operator = newOperator;
+
         }
        
         
@@ -168,9 +180,10 @@ function subtract (firstOperand, secondOperand) {
         result = Number(intermediateResult.toFixed(3));
     }
 
-    firstOperand = result;
-    alert(result);
-    return result;
+     
+    viewResult.textContent = result;
+    prepareNewCalculation(result);
+    return;
 
 }
 
@@ -191,9 +204,10 @@ function multiply (firstOperand, secondOperand) {
         result = Number(intermediateResult.toFixed(3));
     }
 
-    alert(result);
-    firstOperand = result;
-    return result;
+ 
+    viewResult.textContent = result;
+    prepareNewCalculation(result);
+    return;
 
 
 
@@ -216,10 +230,10 @@ function divide (firstOperand, secondOperand) {
             result = Number(intermediateResult.toFixed(3));
         }
     }
+    viewResult.textContent = result;
+    prepareNewCalculation(result);
+    return;
 
-    firstOperand = result;
-    alert(result);
-    return result;
 
     
 
@@ -286,9 +300,6 @@ function prepareNewCalculation (result) {
     secondOperand = '';
     operands = [];
     operands.push(firstOperand);
-    console.log("Calculation Slate Cleansed: ");
-    console.log("firstOperand: ", firstOperand);
-    console.log("secondOperand: ", secondOperand);
-    console.log("operand array: ", operands);
     return;
 }
+
