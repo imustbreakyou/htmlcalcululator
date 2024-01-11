@@ -1,7 +1,7 @@
 
 let firstOperand;
 let secondOperand;
-let operands =[];
+
 let operator;
 let newOperator;
 
@@ -15,36 +15,19 @@ document.addEventListener('click', function(event) {
     showCalculation();
 })
 
-// Calculate Functionalility 
+// Calculate Button Event Listener 
 const calculateButton = document.getElementById('calculate');
 calculateButton.addEventListener('click', function() {
-   
-    
-    console.log(this.value);
-    numberString = Number(rawNumberString);
-
-    rawNumberString = '';
-    operarands = prepareForOperate(numberString);
-    console.log("perpare for operate a success! Operands array now shows: ", operands)
-    
-    firstOperand = operands[0]
-    console.log(firstOperand);
-    secondOperand = operands[1]
-    console.log(secondOperand);
-    
-    if (operands.length < 2) {
-        return;
+    if (readyToOperate() = true) {
+        operate(firstOperand, secondOperand, operator)
     } else {
-
-        operate(firstOperand, secondOperand, operator);
-    
-
+        return;
     }
    
     
 });
 
-// Clear Functionality 
+// Clear Functionality Event Listener 
 const clearButton = document.getElementById('clear-button');
 clearButton.addEventListener('click', function() {
     console.log("CLEAR");
@@ -58,7 +41,7 @@ clearButton.addEventListener('click', function() {
     return
 });
 
-// Delete Functionality 
+// Delete Functionality Event Listener 
 const deleteButton = document.getElementById('delete-button');
 deleteButton.addEventListener('click', function() {
     console.log("DELETE");
@@ -72,7 +55,7 @@ deleteButton.addEventListener('click', function() {
     
 });
 
-//Intake Decimal
+//Intake Decimal Event Listener 
 const decimalButton = document.getElementById('decimal');
 decimalButton.addEventListener('click', function() {
     console.log(deleteButton);
@@ -82,67 +65,32 @@ decimalButton.addEventListener('click', function() {
         return;
 
     } else {
-
+        
         rawNumberString += (this.value);
     }
 });
 
 
-// Intake Number
+// Intake Number Event Lisetener 
 
 document.querySelectorAll('.number-button').forEach(button => {
     button.addEventListener('click', function() {
-        if (firstOperand && !operator) {
-            firstOperand = 0;
-        } else {
-
-        
         rawNumberString += (this.value);
-        }
-     
-        console.log(rawNumberString);
-
-        
-
+        console.log("number button event listener's raw number string: ", rawNumberString);
     })
 }); 
 
-// Intake Operator Handler
+// Intake Operator Event Listener
 document.querySelectorAll('.operator-button').forEach(button => {
     button.addEventListener('click', function() {
-        if (!operator) {
-            operator = this.value;
+        if (readyToOperate() = true) {
+            operate(firstOperand, secondOperand, operator)
         } else {
-            newOperator = this.value;
+            buildOperands(firstOperand, secondOperand, rawNumberString)
         }
-        
+        operator = this.value;
+        console.log("operate button event listener's operator: ", rawNumberString);
 
-
-            
-    
-   
-        numberString = Number(rawNumberString);
-        
-
-        rawNumberString = '';
-        operarands = prepareForOperate(numberString);
-        console.log("perpare for operate a success! Operands array now shows: ", operands)
-        
-     
-        firstOperand = operands[0]
-        console.log(firstOperand);
-        secondOperand = operands[1]
-        console.log(secondOperand);
-        
-        if (operands.length < 2) {
-            return;
-        } else {
-
-        operate(firstOperand, secondOperand, operator);
-            
-
-        }
-       
         
     })
 }); 
@@ -281,34 +229,11 @@ function isWholeNumber (intermediateResult) {
 
 
 
-function prepareForOperate (numberString, firstOperand) {
-
-    if (operands.length == 0) {
-        firstOperand = numberString;
-        operands.push(firstOperand);
- 
-        return operands;
-
-        
-    } else {
-        secondOperand = numberString;
-        
-        
-        operands.push(secondOperand);
-
-        return operands;
-    }
-
-
-}
-
 
 
 function prepareNewCalculation (result) {
     firstOperand = result;
     secondOperand = '';
-    operands = [];
-    operands.push(firstOperand);
     console.log("new calculation prepared.... new operator is: ", operator);
 
     if (newOperator) {
@@ -331,6 +256,46 @@ function showCalculation() {
         displayOperationDiv.textContent = firstOperand + operator + rawNumberString;
     } else if (firstOperand && operator && secondOperand) {
         displayOperationDiv.textContent = firstOperand + operator + secondOperand;
+    }
+}
+
+// function to evaluate calculation criteria 
+function calculate () {
+     
+}
+
+
+// Should be fired on any  operator or =
+function readyToOperate () {
+    // Check state of operation 
+    //if ready to calculate
+    if (firstOperand && operator && secondOperand) {
+        // calculate 
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function buildOperands (rawNumberString, firstOperand,) {
+    //pass number value to numberString
+    numberString = Number(rawNumberString);
+        
+    // reset rawNumberString
+    rawNumberString = '';
+
+    // if no operands
+    if (!firstOperand) {
+        firstOperand = numberString;
+        return ;
+
+    // if first operand
+    } else if (firstOperands && !secondOperand) {
+        secondOperand = numberString;
+        return;
+
+    } else {
+        return ;
     }
 }
 
