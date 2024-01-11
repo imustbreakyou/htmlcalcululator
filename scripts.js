@@ -1,8 +1,9 @@
 
- let firstOperand;
- let secondOperand;
- let operands =[];
- let operator;
+let firstOperand;
+let secondOperand;
+let operands =[];
+let operator;
+let newOperator;
 
 let rawNumberString = '';
 
@@ -91,24 +92,34 @@ decimalButton.addEventListener('click', function() {
 
 document.querySelectorAll('.number-button').forEach(button => {
     button.addEventListener('click', function() {
-         
+        if (firstOperand && !operator) {
+            firstOperand = 0;
+        } else {
+
+        
         rawNumberString += (this.value);
+        }
      
         console.log(rawNumberString);
+
+        
 
     })
 }); 
 
-// Intake Operator
+// Intake Operator Handler
 document.querySelectorAll('.operator-button').forEach(button => {
     button.addEventListener('click', function() {
         if (!operator) {
             operator = this.value;
-            
         } else {
             newOperator = this.value;
         }
         
+
+
+            
+    
    
         numberString = Number(rawNumberString);
         
@@ -127,8 +138,8 @@ document.querySelectorAll('.operator-button').forEach(button => {
             return;
         } else {
 
-            operate(firstOperand, secondOperand, operator);
-            operator = newOperator;
+        operate(firstOperand, secondOperand, operator);
+            
 
         }
        
@@ -142,7 +153,7 @@ function operate (firstOperand, secondOperand, operator) {
     console.log("fire operate function!");
     console.log("operate firstOperand: ", firstOperand);
     console.log("operate secondOperand: ", secondOperand);
-    console.log("operate operator: ", operator);
+    console.log(" operator used in operate function ", operator);
     switch (operator) {
 
         case '+':
@@ -158,7 +169,7 @@ function operate (firstOperand, secondOperand, operator) {
             return divide(firstOperand, secondOperand);
            
         default:
-            throw new Error ("please input a valid operator");
+            return;
             
     }
 
@@ -298,7 +309,17 @@ function prepareNewCalculation (result) {
     secondOperand = '';
     operands = [];
     operands.push(firstOperand);
-    return;
+    console.log("new calculation prepared.... new operator is: ", operator);
+
+    if (newOperator) {
+        operator = newOperator;
+        newOperator = '';
+        displayOperationDiv.textContent = firstOperand + operator;
+    } else {
+        operator =''
+        displayOperationDiv.textContent = firstOperand;
+
+    }
 }
 
 function showCalculation() {
