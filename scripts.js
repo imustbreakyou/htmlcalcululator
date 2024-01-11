@@ -32,6 +32,7 @@ clearButton.addEventListener('click', function() {
     operands = [];
     operator = '';
     viewResult.textContent = 0;
+    displayOperationDiv.textContent = 0;
 
     return
 });
