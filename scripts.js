@@ -1,6 +1,9 @@
 
  let firstOperand;
+ let secondOperand;
+ let operands =[];
 
+const viewResult = document.getElementById('view-result');
 //const operator = prompt("operator", "+");
 
 //const secondOperand = prompt("second number:",'');
@@ -22,17 +25,18 @@ const clearButton = document.getElementById('clear-button');
 clearButton.addEventListener('click', function() {
     console.log("CLEAR");
     rawNumberString = 0;
-    firstOperand = 0;
-    secondOperand = 0;
+    firstOperand = '';
+    secondOperand = '';
+    operands = [];
     return
 });
 
-// Deleted Functionality 
+// Delete Functionality 
 const deleteButton = document.getElementById('delete-button');
 deleteButton.addEventListener('click', function() {
     console.log("DELETE");
     rawNumberString = rawNumberString.slice(0, -1);
-    console.log(typeof rawNumberString);
+    
     
 });
 
@@ -40,7 +44,7 @@ deleteButton.addEventListener('click', function() {
 const decimalButton = document.getElementById('decimal');
 decimalButton.addEventListener('click', function() {
     console.log(deleteButton);
-    
+
     if (!isWholeNumber(rawNumberString) || rawNumberString.slice(-1) === ".") {
         alert("improper decimal choice");
         return;
@@ -53,13 +57,14 @@ decimalButton.addEventListener('click', function() {
 
 
 // Intake Number
+
 document.querySelectorAll('.number-button').forEach(button => {
     button.addEventListener('click', function() {
-        console.log(this.value);
-        console.log(typeof this.value);
+       
+  
    
         rawNumberString += (this.value);
-        console.log(typeof rawNumberString);
+       
         console.log(rawNumberString);
 
     })
@@ -68,11 +73,27 @@ document.querySelectorAll('.number-button').forEach(button => {
 // Intake Operator
 document.querySelectorAll('.operator-button').forEach(button => {
     button.addEventListener('click', function() {
-        console.log(this.value);
-        console.log(rawNumberString);
-        firstOperand = rawNumberString;
+        
+        operator = this.value;
+   
+        numberString = Number(rawNumberString);
+
         rawNumberString = '';
-        console.log("clicked");
+        operarands = prepareForOperate(numberString);
+        console.log("perpare for operate a success! Operands array now shows: ", operands)
+        
+        firstOperand = operands[0]
+        console.log(firstOperand);
+        secondOperand = operands[1]
+        console.log(secondOperand);
+        
+        if (operands.length < 2) {
+            return;
+        } else {
+            operate(firstOperand, secondOperand, operator);
+        }
+       
+        
     })
 }); 
 
@@ -81,7 +102,7 @@ document.querySelectorAll('.operator-button').forEach(button => {
 
 
 
-//operate(firstOperand, secondOperand, operator);
+
 
 
 
@@ -89,9 +110,9 @@ document.querySelectorAll('.operator-button').forEach(button => {
 
 function operate (firstOperand, secondOperand, operator) {
     console.log("fire operate function!");
-   // console.log("operate firstOperand: ", firstOperand);
-   // console.log("operate secondOperand: ", secondOperand);
-  //  console.log("operate operator: ", operator);
+    console.log("operate firstOperand: ", firstOperand);
+    console.log("operate secondOperand: ", secondOperand);
+    console.log("operate operator: ", operator);
     switch (operator) {
 
         case '+':
@@ -115,10 +136,8 @@ function operate (firstOperand, secondOperand, operator) {
 
 
 function add (firstOperand, secondOperand) {
-    console.log("fire add function!");
-    console.log("add firstOperand: ", firstOperand);
-    console.log("add secondOperand: ", secondOperand);
-    //  console.log("add operator: ", operator);
+
+ 
     let a = Number(firstOperand);
     let b = Number(secondOperand);
 
@@ -130,16 +149,15 @@ function add (firstOperand, secondOperand) {
         result = Number(intermediateResult.toFixed(3));
     }
 
-    alert(result);
-    return result;
+    
+    viewResult.textContent = result;
+    prepareNewCalculation(result);
+    return;
 
 }
 
 function subtract (firstOperand, secondOperand) {
-    //console.log("fire add function!");
-    // console.log("add firstOperand: ", firstOperand);
-    // console.log("add secondOperand: ", secondOperand);
-    //  console.log("add operator: ", operator);
+
     let a = Number(firstOperand);
     let b = Number(secondOperand);
   
@@ -150,6 +168,7 @@ function subtract (firstOperand, secondOperand) {
         result = Number(intermediateResult.toFixed(3));
     }
 
+    firstOperand = result;
     alert(result);
     return result;
 
@@ -173,6 +192,7 @@ function multiply (firstOperand, secondOperand) {
     }
 
     alert(result);
+    firstOperand = result;
     return result;
 
 
@@ -187,7 +207,7 @@ function divide (firstOperand, secondOperand) {
     let a = parseInt(firstOperand);
     let b = parseInt(secondOperand);
     if ( b === 0 ) {
-        throw new Error ("Dont even think about dividing by zero!");
+        alert("Dont even think about dividing by zero!");
     } else {
         intermediateResult = Number(a / b)
         if (isWholeNumber(intermediateResult)) {
@@ -197,6 +217,7 @@ function divide (firstOperand, secondOperand) {
         }
     }
 
+    firstOperand = result;
     alert(result);
     return result;
 
@@ -207,10 +228,8 @@ function divide (firstOperand, secondOperand) {
 function isWholeNumber (intermediateResult) {
     let result = (intermediateResult - Math.floor(intermediateResult)) !== 0;
     if (result) {
-        console.log("iswhole.... NOT a whole number");
         return false;
     } else
-    console.log("iswhole.... whole number!");
         return true;
 }
 
@@ -219,9 +238,32 @@ function isWholeNumber (intermediateResult) {
 
 
 
-function buildOperands () {
+function prepareForOperate (numberString, firstOperand) {
+
+    
 
 
+
+
+
+    if (operands.length == 0) {
+        firstOperand = numberString;
+        operands.push(firstOperand);
+ 
+        return operands;
+
+        
+    } else {
+        secondOperand = numberString;
+        
+        
+        operands.push(secondOperand);
+
+        return operands;
+    }
+
+  
+    
 
 }
 
@@ -239,4 +281,14 @@ function createOperatorConstants () {
 
 
 
-
+function prepareNewCalculation (result) {
+    firstOperand = result;
+    secondOperand = '';
+    operands = [];
+    operands.push(firstOperand);
+    console.log("Calculation Slate Cleansed: ");
+    console.log("firstOperand: ", firstOperand);
+    console.log("secondOperand: ", secondOperand);
+    console.log("operand array: ", operands);
+    return;
+}
