@@ -10,20 +10,15 @@ let rawNumberString = '';
 const viewResult = document.getElementById('view-result');
 const displayOperationDiv = document.getElementById('view-operation');
 
-// ALL CLICK EVENT LISTENER
-document.addEventListener('click', function(event) {
-    showCalculation();
-})
+
 
 // Calculate Button Event Listener 
 const calculateButton = document.getElementById('calculate');
 calculateButton.addEventListener('click', function() {
-    if (readyToOperate() = true) {
+    buildOperands();
+    if (readyToOperate() === true) {
         operate(firstOperand, secondOperand, operator)
-    } else {
-        return;
     }
-   
     
 });
 
@@ -49,6 +44,7 @@ deleteButton.addEventListener('click', function() {
         return;
     } else {
         rawNumberString = rawNumberString.slice(0, -1);
+        showCalculation();
     }
     
     
@@ -67,6 +63,7 @@ decimalButton.addEventListener('click', function() {
     } else {
         
         rawNumberString += (this.value);
+        showCalculation();
     }
 });
 
@@ -76,6 +73,7 @@ decimalButton.addEventListener('click', function() {
 document.querySelectorAll('.number-button').forEach(button => {
     button.addEventListener('click', function() {
         rawNumberString += (this.value);
+        showCalculation();
         console.log("number button event listener's raw number string: ", rawNumberString);
     })
 }); 
@@ -83,14 +81,20 @@ document.querySelectorAll('.number-button').forEach(button => {
 // Intake Operator Event Listener
 document.querySelectorAll('.operator-button').forEach(button => {
     button.addEventListener('click', function() {
-        if (readyToOperate() = true) {
-            operate(firstOperand, secondOperand, operator)
-        } else {
-            buildOperands(firstOperand, secondOperand, rawNumberString)
-        }
+        buildOperands();
         operator = this.value;
-        console.log("operate button event listener's operator: ", rawNumberString);
+        
+        
 
+    
+        if (readyToOperate() === true) {
+            operate(firstOperand, secondOperand, operator);
+            newOperator = '';
+        } else {
+            newOperator = this.value;
+    
+        }
+        showCalculation();
         
     })
 }); 
@@ -138,7 +142,7 @@ function add (firstOperand, secondOperand) {
         result = Number(intermediateResult.toFixed(3));
     }
 
-    
+    showCalculation();
     viewResult.textContent = result;
     prepareNewCalculation(result);
     return;
@@ -157,7 +161,7 @@ function subtract (firstOperand, secondOperand) {
         result = Number(intermediateResult.toFixed(3));
     }
 
-     
+    showCalculation();
     viewResult.textContent = result;
     prepareNewCalculation(result);
     return;
@@ -181,7 +185,7 @@ function multiply (firstOperand, secondOperand) {
         result = Number(intermediateResult.toFixed(3));
     }
 
- 
+    showCalculation();
     viewResult.textContent = result;
     prepareNewCalculation(result);
     return;
@@ -195,8 +199,8 @@ function divide (firstOperand, secondOperand) {
     // console.log("/ firstOperand: ", firstOperand);
     // console.log("/ secondOperand: ", secondOperand);
     //  console.log("/ operator: ", operator);
-    let a = parseInt(firstOperand);
-    let b = parseInt(secondOperand);
+    let a = Number(firstOperand);
+    let b = Number(secondOperand);
     if ( b === 0 ) {
         alert("Dont even think about dividing by zero!");
     } else {
@@ -207,6 +211,7 @@ function divide (firstOperand, secondOperand) {
             result = Number(intermediateResult.toFixed(3));
         }
     }
+    showCalculation();
     viewResult.textContent = result;
     prepareNewCalculation(result);
     return;
@@ -232,19 +237,21 @@ function isWholeNumber (intermediateResult) {
 
 
 function prepareNewCalculation (result) {
-    firstOperand = result;
+    firstOperand = result.toString();
     secondOperand = '';
+    newOperator ='';
     console.log("new calculation prepared.... new operator is: ", operator);
 
-    if (newOperator) {
-        operator = newOperator;
-        newOperator = '';
+    if (!newOperator && operator) {
         displayOperationDiv.textContent = firstOperand + operator;
     } else {
-        operator =''
+        // If no operator is chosen, just display the first operand
+        operator = '';
         displayOperationDiv.textContent = firstOperand;
-
     }
+
+    rawNumberString = '';
+
 }
 
 function showCalculation() {
@@ -277,25 +284,15 @@ function readyToOperate () {
     }
 }
 
-function buildOperands (rawNumberString, firstOperand,) {
-    //pass number value to numberString
-    numberString = Number(rawNumberString);
-        
-    // reset rawNumberString
-    rawNumberString = '';
+function buildOperands() {
+    if (rawNumberString !== '') {
+        let numberString = Number(rawNumberString);
+        rawNumberString = '';
 
-    // if no operands
-    if (!firstOperand) {
-        firstOperand = numberString;
-        return ;
-
-    // if first operand
-    } else if (firstOperands && !secondOperand) {
-        secondOperand = numberString;
-        return;
-
-    } else {
-        return ;
+        if (firstOperand === undefined || firstOperand === '') {
+            firstOperand = numberString;
+        } else if (secondOperand === undefined || secondOperand === '') {
+            secondOperand = numberString;
+        }
     }
 }
-
