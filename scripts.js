@@ -12,13 +12,33 @@ const viewResult = document.getElementById('view-result');
 
 let rawNumberString = '';
 
-// Set Calculate Button const and event Listener
+// Calculate Functionalility 
 const calculateButton = document.getElementById('calculate');
 calculateButton.addEventListener('click', function() {
+   
+    
     console.log(this.value);
+    numberString = Number(rawNumberString);
 
+    rawNumberString = '';
+    operarands = prepareForOperate(numberString);
+    console.log("perpare for operate a success! Operands array now shows: ", operands)
+    
+    firstOperand = operands[0]
+    console.log(firstOperand);
+    secondOperand = operands[1]
+    console.log(secondOperand);
+    
+    if (operands.length < 2) {
+        return;
+    } else {
 
+        operate(firstOperand, secondOperand, operator);
+    
 
+    }
+   
+    
 });
 
 // Clear Functionality 
@@ -39,7 +59,12 @@ clearButton.addEventListener('click', function() {
 const deleteButton = document.getElementById('delete-button');
 deleteButton.addEventListener('click', function() {
     console.log("DELETE");
-    rawNumberString = rawNumberString.slice(0, -1);
+    if (rawNumberString === ''|| rawNumberString === 0) {
+        return;
+    } else {
+        rawNumberString = rawNumberString.slice(0, -1);
+    }
+    
     
     
 });
@@ -64,9 +89,7 @@ decimalButton.addEventListener('click', function() {
 
 document.querySelectorAll('.number-button').forEach(button => {
     button.addEventListener('click', function() {
-       
-  
-   
+         
         rawNumberString += (this.value);
        
         console.log(rawNumberString);
@@ -108,15 +131,6 @@ document.querySelectorAll('.operator-button').forEach(button => {
         
     })
 }); 
-
-
-
-
-
-
-
-
-
 
 
 
@@ -254,12 +268,6 @@ function isWholeNumber (intermediateResult) {
 
 function prepareForOperate (numberString, firstOperand) {
 
-    
-
-
-
-
-
     if (operands.length == 0) {
         firstOperand = numberString;
         operands.push(firstOperand);
@@ -276,22 +284,8 @@ function prepareForOperate (numberString, firstOperand) {
         return operands;
     }
 
-  
-    
 
 }
-
-
-
-
-function createNumberConstants () {
-
-}
-
-function createOperatorConstants () {
-
-}
-
 
 
 
