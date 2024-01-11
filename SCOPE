@@ -23,3 +23,23 @@ Store first and second number in caclulator utilize the operator that the user s
   Add a . button and let users input decimals! Make sure you don’t let them type more than one though: 12.3.56.5. It is hard to do math on these numbers. (disable the decimal button if there’s already one in the display)
 
 
+JS PSUEDOCODE
+
+User enters numbers... those digits concatonate into a string.
+
+if not firstOperand...
+    numbers will go into the first operand
+
+if... they will go into the second for a function
+
+when operator or sum is hit, firstOperand + operator + secondOperand is displayed up top
+
+
+    that result is displayed below and set to firstOperand and any number after gets set as secondOperand
+
+
+delete deletes the last number of the string and sets the holder again
+
+
+
+

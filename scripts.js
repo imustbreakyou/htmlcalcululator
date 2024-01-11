@@ -1,14 +1,65 @@
 
-const firstOperand = prompt("first number:", '');
+//const firstOperand = prompt("first number:", '');
 
-const operator = prompt("operator", "+");
+//const operator = prompt("operator", "+");
 
-const secondOperand = prompt("second number:",'');
+//const secondOperand = prompt("second number:",'');
 
-const calculateButton = document.querySelector('#calculate')
+let numberInputArray = [];
 
 
-operate(firstOperand, secondOperand, operator);
+// Set Calculate Button const and event Listener
+const calculateButton = document.getElementById('calculate');
+calculateButton.addEventListener('click', function() {
+    console.log(this.value);
+    console.log(numberInputArray);
+});
+
+// Clear Functionality 
+const clearButton = document.getElementById('clear-button');
+clearButton.addEventListener('click', function() {
+    console.log("CLEAR");
+    numberInputArray = [];
+    firstOperand = 0;
+    secondOperand = 0;
+    return
+});
+
+// Deleted Functionality 
+const deleteButton = document.getElementById('delete-button');
+deleteButton.addEventListener('click', function() {
+    console.log("DELETE");
+    return numberInputArray.pop();
+    
+});
+
+
+
+// Intake Number
+document.querySelectorAll('.number-button').forEach(button => {
+    button.addEventListener('click', function() {
+        console.log(this.value);
+        numberInputArray.push(this.value);
+
+    })
+}); 
+
+// Intake Operator
+document.querySelectorAll('.operator-button').forEach(button => {
+    button.addEventListener('click', function() {
+        console.log(this.value);
+    })
+}); 
+
+
+
+
+
+
+//operate(firstOperand, secondOperand, operator);
+
+
+
 
 
 function operate (firstOperand, secondOperand, operator) {
@@ -138,10 +189,38 @@ function isWholeNumber (intermediateResult) {
         return true;
 }
 
+
+
+
+
 function clear () {
 
 }
 
-function delete () {
+function deleteLastCharacter () {
 
 }
+
+function buildOperand () {
+
+
+
+    
+
+}
+
+
+
+
+function createNumberConstants () {
+
+}
+
+function createOperatorConstants () {
+
+}
+
+
+
+
+

@@ -1,10 +1,29 @@
 
+:root {
+    --main-background-color: #F6F6F6;
+    --main-body-color: #9e9e9e;
+    --main-button-color: #E9E9E9;
     
+    --highlight-color-1: #9a81ff;
+    --highlight-color-2: #ff8a70;
+    --highlight-color-3: #80E1D9;
+    --highlight-color-4: #e0a9ee
+    ;
+
+}    
+
+button {
+    border: 2px solid black;
+    font-size: 24px;
+    
+}
+
     .body-container {
         display: flex;
         flex-direction: column;
         align-items: stretch;
         height: 100vh;
+        background: var(--main-background-color);
        
       
 
@@ -12,13 +31,15 @@
 
     .calculator {
         display: flex;
-        border: 1px solid green;
+        border: 2px solid black;
         flex-direction: column;
         margin: 5px;
         height: 564px;
         width: 400px;
         margin: 10px;
         padding: 10px;
+        background-color: var(--main-body-color);
+        border-radius: 15px;
 
 
 
@@ -33,17 +54,27 @@
         padding: 5px;
        
     
-        border: 1px solid purple;
+       /* border: 1px solid purple; */
 
       
     }
 
+    .clear,
+    .delete {
+        
+        font-size: 24px;
+        
+        border: 2px solid black;
+    }
+
     .clear {
+        background: var(--highlight-color-1);
 
     }
 
 
     .delete {
+        background: var(--highlight-color-4);
 
     }
 
@@ -73,6 +104,14 @@
 
     }
 
+    .operator-button {
+        background-color: var(--highlight-color-3);
+    }
+
+    .calculate-button {
+        background-color: var(--highlight-color-2);
+    }
+
 
 
     .viewport-container {
@@ -82,7 +121,16 @@
         justify-content: stretch;
         min-height: 120px;
         padding: 5px;
+        background-color: var(--main-button-color);
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px inset;
+        border: 2px solid black;
+        border-radius: 5px;
+        margin: 5px 10px 5px 10px;
+       
+        
     }
+
+    
 
     .viewport-operation {
         height: 40px;
@@ -113,16 +161,19 @@
         gap: 10px;
     }
 
-    .input-button {
+    .input-button,
+    .calculate-button,
+    .number-button,
+    .operator-button {
         
         min-width: 90px;
-        border-radius: 15px;
+        border-radius: 5px;
     }
 
     .viewport-container,
     .utility-container,
     .input-container {
-        border: 1px solid orange;
+      /*  border: 1px solid orange; */
        
     }
 
@@ -133,20 +184,20 @@
     .header-container,
     .main-container,
     .footer-container {
-        border: 1px solid black;
+       /* border: 1px solid black;*/
     
         
     }
 
     .viewport-operation,
     .viewport-result {
-        border: 1px solid blue;
+     /*   border: 1px solid blue; */
        
     }
 
     .clear,
     .delete {
-        border: 1px solid gold;
+       /* border: 1px solid gold; */
         flex: 1;
-        border-radius: 15px;
+        border-radius: 5px;
     }
